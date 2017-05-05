@@ -46,13 +46,15 @@ class BasePLN(BaseEstimator):
             self.n_outputs = y.shape[1]
         if self.n_outputs > 1:
             self.multi_output=True
+        else:
+            self.multi_output=False
         print(self.n_inputs)
         print(self.n_outputs)
         X, y = check_X_y(X, y, multi_output=self.multi_output, ensure_min_samples=self.n_samples)
 
-        k_means = KMeans(n_clusters=self.n_clusters, random_state=self.random_state).fit(X)
-        self.cluster_centers = k_means.cluster_centers_
-        self.labels = k_means.labels_
+        self.k_means = KMeans(n_clusters=self.n_clusters, random_state=self.random_state).fit(X)
+        self.cluster_centers = self.k_means.cluster_centers_
+        self.labels = self.k_means.labels_
 
         self.R = np.empty((self.n_clusters,self.n_inputs+1,self.n_inputs+1))
         self.C = np.empty((self.n_clusters,self.n_inputs+1,self.n_outputs))
@@ -64,7 +66,6 @@ class BasePLN(BaseEstimator):
             self.R[k] = X_k.T @ X_k
             self.C[k] = X_k.T @ y_k
             self.W[k] = linalg.lstsq(self.R[k], self.C[k])[0]
-            print(self.W[k])
 
         print(self.W)
 
@@ -81,19 +82,40 @@ class BasePLN(BaseEstimator):
 
         Returns
         -------
-        y : array of shape = [n_samples]
-            Returns :math:`x^2` where :math:`x` is the first column of `X`.
+        y : array of shape = [n_samples] or [n_samples, n_outputs]
+            Returns : predicted output of the PLN.
         """
         X = check_array(X)
-        return X[:, 0]**2
+        pred_cluster_labels = self.k_means.predict(X)
+        print(pred_cluster_labels)
+        y = np.zeros((X.shape[0],self.n_outputs))
+        for k in np.arange(self.n_clusters):
+            idxk = pred_cluster_labels==k
+            X_k = np.concatenate((np.ones((sum(idxk),1)), X[idxk,:]), axis=1)
+            y_k = X_k @ self.W[k]
+            y[idxk,:] = y_k
+        return y
 
-if __name__ == "__main__":
+def main():
     np.random.seed(0)
     n_samples = 50
-    X = np.random.random((n_samples,3))
-    y = np.random.random((n_samples,2))
+    X = np.random.random((n_samples,1))
+    X = np.arange(n_samples).reshape((n_samples,1))
+    y = np.random.random((n_samples,1))
     print(X)
     print(y)
-    pln = BasePLN(5)
+    pln = BasePLN(10)
     model = pln.fit(X, y)
-    print(model)
+    y1 = model.predict(X)
+    print(y)
+    print(y1)
+    print(sum(y-y1))
+    import matplotlib.pyplot as plt
+    plt.plot(X,y)
+    plt.draw()
+    plt.figure()
+    plt.plot(X,y1)
+    plt.show()
+
+if __name__ == "__main__":
+    main()
