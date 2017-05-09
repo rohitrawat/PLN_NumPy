@@ -4,17 +4,13 @@
 [![Coveralls Status](https://coveralls.io/repos/scikit-learn-contrib/project-template/badge.svg?branch=master&service=github)](https://coveralls.io/r/scikit-learn-contrib/project-template)
 [![CircleCI Status](https://circleci.com/gh/scikit-learn-contrib/project-template.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/scikit-learn-contrib/project-template/tree/master)
 
-**project-template** is a template project for 
-[scikit-learn](http://scikit-learn.org/) 
-compatible extensions.
+**PLN** is the sklearn compatible implementation of a Piecewise Linear Network as described in
+[Second Order Training of a Smoothed Piecewise Linear Network](http://link.springer.com/article/10.1007/s11063-017-9618-2).
 
-It aids development of estimators that can be used in scikit-learn pipelines
-and (hyper)parameter search, while facilitating testing (including some API
-compliance), documentation, open source development, packaging, and continuous
-integration.
+It implements both regression and classification version of the PLN. It supports multiple outputs and class labels.
 
 ## Important Links
-HTML Documentation - http://contrib.scikit-learn.org/project-template/
+Paper - https://link.springer.com/article/10.1007/s11063-017-9618-2
 
 ## Installation and Usage
 The package by itself comes with a single module and an estimator. Before
@@ -23,9 +19,9 @@ To install the module execute:
 ```shell
 $ python setup.py install
 ```
-or 
+or
 ```
-pip install sklearn-template
+pip install PLN
 ```
 
 If the installation is successful, and `scikit-learn` is correctly installed,
@@ -97,7 +93,7 @@ To build the documentation locally, ensure that you have `sphinx`,
 $ pip install sphinx matplotlib sphinx-gallery
 ```
 The documentation contains a home page (`doc/index.rst`), an API
-documentation page (`doc/api.rst`) and a page documenting the `template` module 
+documentation page (`doc/api.rst`) and a page documenting the `template` module
 (`doc/template.rst`). Sphinx allows you to automatically document your modules
 and classes by using the `autodoc` directive (see `template.rst`). To change the
 asthetics of the docs and other paramteres, edit the `doc/conf.py` file. For
@@ -175,15 +171,15 @@ choose `Create and add user key` option. This should grant CircleCI privileges
 to push to the repository `https://github.com/USERNAME/DOC_REPO/`.
 
 If all goes well, you should be able to visit the documentation of your project
-on 
+on
 ```
 https://github.com/USERNAME/DOC_REPO/DOC_URL
 ```
 
 ### 8. Adding Badges
 
-Follow the instructions to add a [Travis Badge](https://docs.travis-ci.com/user/status-images/), 
-[Coveralls Badge](https://coveralls.io) and 
+Follow the instructions to add a [Travis Badge](https://docs.travis-ci.com/user/status-images/),
+[Coveralls Badge](https://coveralls.io) and
 [CircleCI Badge](https://circleci.com/docs/status-badges) to your repository's
 `README`.
 
