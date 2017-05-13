@@ -11,7 +11,7 @@ machine:
     DOC_URL: ""
 
     # The email is to be used for commits in the Github Page
-    EMAIL: "vnb222+ci@nyu.edu"
+    EMAIL: "rohitrawat@gmail.com"
 
 dependencies:
 

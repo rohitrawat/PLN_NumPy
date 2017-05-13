@@ -1,15 +1,14 @@
 from sklearn.utils.estimator_checks import check_estimator
-from skltemplate import (TemplateEstimator, TemplateClassifier,
-                         TemplateTransformer)
+from PLN import BasePLN, PLNR, PLNC
 
 
 def test_estimator():
-    return check_estimator(TemplateEstimator)
+    return check_estimator(PLNR)
 
 
 def test_classifier():
-    return check_estimator(TemplateClassifier)
+    return check_estimator(PLNC)
 
 
-def test_transformer():
-    return check_estimator(TemplateTransformer)
+def test_base():
+    return check_estimator(BasePLN)

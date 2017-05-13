@@ -1,6 +1,5 @@
-from .template import (TemplateEstimator, TemplateClassifier,
-                       TemplateTransformer)
-from . import template
+from .PLN import (BasePLN, PLNR, PLNC)
+from . import PLN
 
-__all__ = ['TemplateEstimator', 'TemplateClassifier',
-           'TemplateTransformer', 'template']
+# The classes and the module main() itself
+__all__ = ['BasePLN', 'PLNR', 'PLNC', 'PLN']
